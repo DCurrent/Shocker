@@ -54,7 +54,7 @@
 
 	// Prepare default database configuration.
 		// Establish connection configuration object.
-		$global_database_connect_config = new \dc\yukon\ConnectConfig();
+		$yukon_connect_config = new \dc\yukon\ConnectConfig();
 		
 		// Use application defaults as connection arguments.
 		$yukon_connect_config->set_host(DATABASE::HOST);
@@ -66,9 +66,6 @@
 		$yukon_connection 	= new \dc\yukon\Connect($yukon_connect_config);
 		$yukon_database		= new \dc\yukon\Database($yukon_connection);
 
-	// Prepare common entry configuration.
-		$common_entry_config = new \dc\application\CommonEntry($yukon_connection);
-	
 	// Replace PHPs default session handler.
 		// Prepare session handler configuration.
 		$session_config = new \dc\nahoni\SessionConfig();
