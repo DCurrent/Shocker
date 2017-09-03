@@ -1,3 +1,6 @@
+#Adobde Dreamweaver tracking files.
+*.xml
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
