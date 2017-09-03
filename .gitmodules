@@ -1,0 +1,6 @@
+[submodule "source/dc/Nahoni"]
+	path = source/dc/Nahoni
+	url = https://github.com/DCurrent/Nahoni
+[submodule "source/dc/Yukon"]
+	path = source/dc/Yukon
+	url = https://github.com/DCurrent/Yukon
