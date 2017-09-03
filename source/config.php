@@ -4,7 +4,7 @@
 	{
 		const
 			VERSION 		= '0.1.1',
-			NAME			= 'Inspector Blair',
+			NAME			= 'Shocker',
 			DIRECTORY_PRIME	= '/apps/blair',
 			TIME_FORMAT		= 'Y-m-d H:i:s',
 			PAGE_ROW_MAX	= 25;
@@ -14,7 +14,7 @@
 	{
 		const 
 			HOST 		= 'gensql.ad.uky.edu\general',	// Database host (server name or address)
-			NAME 		= 'inspection',					// Database logical name.
+			NAME 		= 'ehsinfo',					// Database logical name.
 			USER 		= 'EHSInfo_User',				// User name to access database.
 			PASSWORD	= 'ehsinfo',					// Password to access database.
 			CHARSET		= 'UTF-8';						// Character set.
@@ -26,7 +26,7 @@
 			TO		= '',
 			CC		= '',
 			BCC		= 'dc@caskeys.com',
-			SUBJECT = 'Inspector Blair Alert',
+			SUBJECT = 'Shocker Alert',
 			FROM 	= 'ehs_noreply@uky.edu';
 	}
 	
