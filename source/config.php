@@ -5,7 +5,7 @@
 		const
 			VERSION 		= '0.1.1',
 			NAME			= 'Shocker',
-			DIRECTORY_PRIME	= '/apps/blair',
+			DIRECTORY_PRIME	= '/apps/shocker',
 			TIME_FORMAT		= 'Y-m-d H:i:s',
 			PAGE_ROW_MAX	= 25;
 	}
