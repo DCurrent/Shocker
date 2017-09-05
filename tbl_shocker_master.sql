@@ -1,7 +1,7 @@
-USE [ehsinfo]
+USE [EHSINFO]
 GO
 
-/****** Object:  Table [dbo].[tbl_shocker_master]    Script Date: 2017-09-05 12:28:48 ******/
+/****** Object:  Table [dbo].[tbl_shocker_master]    Script Date: 2017-09-05 12:49:19 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -12,11 +12,11 @@ CREATE TABLE [dbo].[tbl_shocker_master](
 	[id_key] [int] IDENTITY(1,1) NOT NULL,
 	[id] [int] NOT NULL,
 	[active] [bit] NOT NULL,
-	[create_by] [int] NOT NULL,
+	[create_by] [varchar](10) NOT NULL,
 	[create_host] [varchar](50) NOT NULL,
 	[create_time] [datetime2](7) NOT NULL,
 	[create_etime]  AS (datediff(second,[create_time],getdate())),
-	[update_by] [int] NOT NULL,
+	[update_by] [varchar](10) NOT NULL,
 	[update_host] [varchar](50) NOT NULL,
 	[update_time] [datetime2](7) NOT NULL,
 	[update_etime]  AS (datediff(second,[update_time],getdate())),
