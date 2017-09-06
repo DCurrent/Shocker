@@ -155,8 +155,8 @@
 					// Populate account data from request.
 					$this->data_account->populate_from_request();
 					
-					// First try local.
-					$this->login_local();
+					// First try local (disabled for Shocker app).
+					// $this->login_local();
 									
 					// If local fails, try LDAP.
 					if($this->login_result != LOGIN_RESULT::LOCAL)
@@ -188,7 +188,7 @@
 				
 					// Get account information from
 					// application database.
-					$this->login_application();
+					// $this->login_application();
 				
 					
 				
