@@ -21,7 +21,6 @@
 	$url_query->set_data('action', $obj_navigation_rec->get_action());
 	$url_query->set_data('id', $obj_navigation_rec->get_id());
 	$url_query->set_data('id_key', $obj_navigation_rec->get_id_key());
-	$url_query->set_data('id_form', $_layout->get_id());
 		
 	// User access.
 	$access_obj = new \dc\access\status();
@@ -31,7 +30,7 @@
 	
 	$access_obj->verify();	
 	$access_obj->action();
-	
+
 	// Start page cache.
 	$page_obj = new \dc\cache\PageCache();
 	
@@ -79,11 +78,6 @@
 			$_obj_data_sub_request = new \data\AccountRole();
 			$_obj_data_sub_request->populate_from_request();
 		
-			// Let's get account info fromt he active directory system. We'll need to put
-			// names int our own database so we can control ordering of output.
-			$account_lookup = new \dc\access\lookup();
-			$account_lookup->lookup($_main_data->get_account());
-		
 			// Call update stored procedure.
 			$query->set_sql('{call account_update(@id			= ?,
 													@log_update_by	= ?, 
@@ -96,7 +90,7 @@
 													@name_m			= ?)}');
 													
 			$params = array(array('<root><row id="'.$_main_data->get_id().'"/></root>', 		SQLSRV_PARAM_IN),
-						array($access_obj->get_id(), 			SQLSRV_PARAM_IN),
+						array($access_obj->get_account(), 		SQLSRV_PARAM_IN),
 						array($access_obj->get_ip(), 			SQLSRV_PARAM_IN),
 						array($_main_data->get_account(), 		SQLSRV_PARAM_IN),						
 						array($_main_data->get_department(),	SQLSRV_PARAM_IN),						
@@ -186,35 +180,49 @@
                 <div class="form-group">
                 	<label class="control-label col-sm-2" for="account">Account</label>
                 	<div class="col-sm-10">
-                		<input type="text" class="form-control"  name="account" id="account" placeholder="Link Blue Account" value="<?php echo $account_lookup->get_DataAccount()->get_account(); ?>" required>
+                		<input type="text" class="form-control"  name="account" id="account" placeholder="Link Blue Account" value="<?php echo $access_obj->get_account(); ?>" required>
                 	</div>
                 </div>               
                 
                 <div class="form-group">
                 	<label class="control-label col-sm-2" for="name_f">Name (First)</label>
                 	<div class="col-sm-10">
-                		<input type="text" class="form-control"  name="name_f" id="name_f" placeholder="First Name" value="<?php echo $account_lookup->get_DataAccount()->get_name_f(); ?>">
+                		<input type="text" class="form-control"  name="name_f" id="name_f" placeholder="First Name" value="<?php echo $access_obj->get_name_f(); ?>">
                 	</div>
                 </div>
                 
                 <div class="form-group">
                 	<label class="control-label col-sm-2" for="name_m">Name (Middle)</label>
                 	<div class="col-sm-10">
-                		<input type="text" class="form-control"  name="name_m" id="name_m" placeholder="Middle Name" value="<?php echo $account_lookup->get_DataAccount()->get_name_m(); ?>">
+                		<input type="text" class="form-control"  name="name_m" id="name_m" placeholder="Middle Name" value="<?php echo $access_obj->get_name_m(); ?>">
                 	</div>
                 </div>
                 
                 <div class="form-group">
                 	<label class="control-label col-sm-2" for="name_m">Name (Last)</label>
                 	<div class="col-sm-10">
-                		<input type="text" class="form-control"  name="name_l" id="name_l" placeholder="Last Name" value="<?php echo $account_lookup->get_DataAccount()->get_name_l(); ?>">
+                		<input type="text" class="form-control"  name="name_l" id="name_l" placeholder="Last Name" value="<?php echo $access_obj->get_name_l(); ?>">
                 	</div>
                 </div>
                 
                 <div class="form-group">
-                	<label class="control-label col-sm-2" for="details">details</label>
+                	<label class="control-label col-sm-2" for="location">Location</label>
                 	<div class="col-sm-10">
-                    	<textarea class="form-control" rows="5" name="details" id="details"></textarea>
+                    	<textarea class="form-control" rows="5" name="location" id="location"></textarea>
+                	</div>
+                </div>
+                                       
+                <div class="form-group">
+                	<label class="control-label col-sm-2" for="reason">Reason</label>
+                	<div class="col-sm-10">
+                    	<textarea class="form-control" rows="5" name="reason" id="reason"></textarea>
+                	</div>
+                </div> 
+                                       
+                <div class="form-group">
+                	<label class="control-label col-sm-2" for="comments">Additional Comments</label>
+                	<div class="col-sm-10">
+                    	<textarea class="form-control" rows="5" name="comments" id="comments"></textarea>
                 	</div>
                 </div>                   
                                         
