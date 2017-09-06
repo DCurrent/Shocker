@@ -83,7 +83,12 @@
 													@details		= ?,
 													@name_f			= ?,
 													@name_l			= ?,
-													@name_m			= ?)}');
+													@name_m			= ?,
+													@building_code	= ?,
+													@room_code		= ?,
+													@location		= ?,
+													@reason			= ?,
+													@comments		= ?)}');
 													
 			$params = array(array('<root><row id="'.$_main_data->get_id().'"/></root>', 		SQLSRV_PARAM_IN),
 						array($access_obj->get_account(), 		SQLSRV_PARAM_IN),
@@ -93,7 +98,12 @@
 						array($_main_data->get_details(), 		SQLSRV_PARAM_IN),
 						array($_main_data->get_name_f(), 		SQLSRV_PARAM_IN),
 						array($_main_data->get_name_l(), 		SQLSRV_PARAM_IN),
-						array($_main_data->get_name_m(), 		SQLSRV_PARAM_IN));
+						array($_main_data->get_name_m(), 		SQLSRV_PARAM_IN),
+						array($_main_data->get_building_code(), SQLSRV_PARAM_IN),
+						array($_main_data->get_room_code(),		SQLSRV_PARAM_IN),
+						array($_main_data->get_location(), 		SQLSRV_PARAM_IN),
+						array($_main_data->get_reason(), 		SQLSRV_PARAM_IN),
+						array($_main_data->get_comments(), 		SQLSRV_PARAM_IN));
 			
 			//var_dump($params);
 			//exit;
