@@ -1,36 +1,6 @@
 <?php 
 	
 	require(__DIR__.'/source/main.php');
-	require(__DIR__.'/source/common_functions/common_list.php');
-	
-	$_page_config_config = new \dc\application\CommonEntry($yukon_connection);	
-	$_page_config = new \dc\application\CommonEntryConfig($_page_config_config);	
-	$_layout = $_page_config->create_config_object();
-	
-	// Delete this record.
-	function action_delete($_main_data, $access_obj, $query)
-	{
-		// Populate the object from post values.			
-		$_main_data->populate_from_request();
-			
-		// Call and execute delete SP.
-		$query->set_sql('{call master_delete(@id = ?,													 
-								@update_by	= ?, 
-								@update_ip 	= ?)}');
-		
-		$params = array(array($_main_data->get_id(), 		SQLSRV_PARAM_IN),
-					array($access_obj->get_id(), 			SQLSRV_PARAM_IN),
-					array($access_obj->get_ip(), 			SQLSRV_PARAM_IN));
-		
-					
-		$query->set_param_array($params);
-		$query->query_run();
-		
-		// Refrsh page to the previous record.				
-		header('Location: '.$_SERVER['PHP_SELF']);
-	}
-	
-	
 	
 	// Page caching.
 	$page_obj = new \dc\cache\PageCache();
@@ -82,14 +52,9 @@
 			break;
 			
 		case \dc\recordnav\COMMANDS::LISTING:
-		
-			common_list($_layout);
-			
 			break;
 			
-		case \dc\recordnav\COMMANDS::DELETE:						
-			
-			action_delete($_main_data, $access_obj, $query);	
+		case \dc\recordnav\COMMANDS::DELETE:	
 			break;				
 					
 		case \dc\recordnav\COMMANDS::SAVE:
@@ -128,19 +93,17 @@
 													@details		= ?,
 													@name_f			= ?,
 													@name_l			= ?,
-													@name_m			= ?,
-													@sub_role_xml	= ?)}');
+													@name_m			= ?)}');
 													
 			$params = array(array('<root><row id="'.$_main_data->get_id().'"/></root>', 		SQLSRV_PARAM_IN),
-						array($access_obj->get_id(), 				SQLSRV_PARAM_IN),
+						array($access_obj->get_id(), 			SQLSRV_PARAM_IN),
 						array($access_obj->get_ip(), 			SQLSRV_PARAM_IN),
 						array($_main_data->get_account(), 		SQLSRV_PARAM_IN),						
 						array($_main_data->get_department(),	SQLSRV_PARAM_IN),						
 						array($_main_data->get_details(), 		SQLSRV_PARAM_IN),
-						array($account_lookup->get_DataAccount()->get_name_f(), SQLSRV_PARAM_IN),
-						array($account_lookup->get_DataAccount()->get_name_l(), SQLSRV_PARAM_IN),
-						array($account_lookup->get_DataAccount()->get_name_m(), SQLSRV_PARAM_IN),
-						array($_obj_data_sub_request->xml(), 	SQLSRV_PARAM_IN));
+						array($_main_data->get_name_f(), 		SQLSRV_PARAM_IN),
+						array($_main_data->get_name_l(), 		SQLSRV_PARAM_IN),
+						array($_main_data->get_name_m(), 		SQLSRV_PARAM_IN));
 			
 			//var_dump($params);
 			//exit;
@@ -165,49 +128,6 @@
 			break;			
 	}
 	
-	// Last thing to do before moving on to main html is to get data to populate objects that
-	// will then be used to generate forms and subforms. This may have already been done, 
-	// such as when making copies of a record, but normally only a only blank object 
-	// will exist at this point. We run a basic select query from our current ID and 
-	// if a row is found overwrite whatever is in the main data object. If needed, we
-	// repeat the process for any sub queries and forms.
-	//
-	// If there is no row at all found, nothing will be done - this is intended behavior because
-	// there could be several reasons why no record is found here and we don't want to have 
-	// overly complex or repetitive logic, but that does mean we have to make sure there
-	// has been an object established at some point above.
-	
-	//////
-	
-	$query->set_sql('{call account(@param_filter_id = ?,
-									@param_filter_id_key = ?)}');
-	$params = array(array($_main_data->get_id(), 		SQLSRV_PARAM_IN),
-					array($_main_data->get_id_key(), 	SQLSRV_PARAM_IN));
-
-	$query->set_param_array($params);
-	$query->query_run();
-	
-	//Query for navigation data and populate navigation object.	
-		$_obj_navigation = new \dc\recordnav\DataNavigation();
-		
-		//$query->get_line_config()->set_class_name('\dc\recordnav\DataNavigation');	
-		//if($query->get_row_exists() === TRUE) $_obj_navigation = $query->get_line_object();
-			
-		$obj_navigation_rec->set_id_first($_obj_navigation->get_id_first());
-		$obj_navigation_rec->set_id_previous($_obj_navigation->get_id_previous());
-		$obj_navigation_rec->set_id_next($_obj_navigation->get_id_next());
-		$obj_navigation_rec->set_id_last($_obj_navigation->get_id_last());
-		
-		$obj_navigation_rec->generate_button_list();
-	
-	// Query for primary data.	
-		$query->get_next_result();
-		
-		$query->get_line_config()->set_class_name('\data\Account');	
-		if($query->get_row_exists() === TRUE) $_main_data = $query->get_line_object();	
-
-	// List queries
-	// ...
 ?>
 
 <!DOCtype html>
@@ -245,82 +165,56 @@
         <div id="container" class="container">            
             <?php echo $obj_navigation_main->get_markup_nav(); ?>                                                                                
             <div class="page-header">           
-                <h1>Account Entry<?php if($_main_data->get_name_l()) echo ' - '.$_main_data->get_name_l().', '.$_main_data->get_name_f(); ?></h1>
-                <p>This screen allows for adding and editing individual accounts.</p>
+                <h1>Request</h1>
+                <p>Fill out the following form to request an AED.</p>
                 <?php
 					// If this isn't the active version, better alert user.
-					if(!$_main_data->get_active() && $_main_data->get_id_key())
-					{
+					//if(!$_main_data->get_active() && $_main_data->get_id_key())
+					//{
 					?>
-                    	<div class="alert alert-warning">
+                    	<!--div class="alert alert-warning">
                         	<strong>Notice:</strong> You are currently viewing an inactive revision of this record. Saving will make this the active revision. To return to the currently active revision without saving, click <a href="<?php echo $_SERVER['PHP_SELF'].'?id='.$_main_data->get_id(); ?>">here</a>.
-                        </div>
+						</div-->
                     <?php
-					}
+					//}
 				?>
             </div>
             
             <form class="form-horizontal" role="form" method="post" enctype="multipart/form-data">           
            		<?php echo $obj_navigation_rec->get_markup(); ?>  
                 
-             	<div class="form-group">       
-                    <label class="control-label col-sm-2" for="revision">Revision</label>
-                    <div class="col-sm-10">
-                        <p class="form-control-static"> 
-                        <?php if(is_object($_main_data->get_create_time()))
-								{
-								?>
-                                <a id="revision" href = "common_version_list.php?id=<?php echo $_main_data->get_id();  ?>"
-                                                            data-toggle	= ""
-                                                            title		= "View log for this record."
-                                                             target		= "_new" 
-                            	><?php  echo date(APPLICATION_SETTINGS::TIME_FORMAT, $_main_data->get_create_time()->getTimestamp()); ?></a>
-                        		<?php
-								}
-								else
-								{
-								?>
-                                	<span class="alert-success">New Record. Fill out form and save to create first revision.</span>
-                                <?php
-								}
-								?>
-                                
-                    	</p>
-                    </div>
-                </div>
-                
                 <div class="form-group">
                 	<label class="control-label col-sm-2" for="account">Account</label>
                 	<div class="col-sm-10">
-                		<input type="text" class="form-control"  name="account" id="account" placeholder="Link Blue Account" value="<?php echo $_main_data->get_account(); ?>" required>
+                		<input type="text" class="form-control"  name="account" id="account" placeholder="Link Blue Account" value="<?php echo $account_lookup->get_DataAccount()->get_account(); ?>" required>
                 	</div>
                 </div>               
                 
                 <div class="form-group">
                 	<label class="control-label col-sm-2" for="name_f">Name (First)</label>
                 	<div class="col-sm-10">
-                		<input type="text" class="form-control"  name="name_f" id="name_f" placeholder="First Name" value="<?php echo $_main_data->get_name_f(); ?>">
+                		<input type="text" class="form-control"  name="name_f" id="name_f" placeholder="First Name" value="<?php echo $account_lookup->get_DataAccount()->get_name_f(); ?>">
                 	</div>
                 </div>
                 
                 <div class="form-group">
                 	<label class="control-label col-sm-2" for="name_m">Name (Middle)</label>
                 	<div class="col-sm-10">
-                		<input type="text" class="form-control"  name="name_m" id="name_m" placeholder="Middle Name" value="<?php echo $_main_data->get_name_m(); ?>">
+                		<input type="text" class="form-control"  name="name_m" id="name_m" placeholder="Middle Name" value="<?php echo $account_lookup->get_DataAccount()->get_name_m(); ?>">
                 	</div>
                 </div>
                 
                 <div class="form-group">
                 	<label class="control-label col-sm-2" for="name_m">Name (Last)</label>
                 	<div class="col-sm-10">
-                		<input type="text" class="form-control"  name="name_l" id="name_l" placeholder="Last Name" value="<?php echo $_main_data->get_name_l(); ?>">
+                		<input type="text" class="form-control"  name="name_l" id="name_l" placeholder="Last Name" value="<?php echo $account_lookup->get_DataAccount()->get_name_l(); ?>">
                 	</div>
                 </div>
                 
                 <div class="form-group">
                 	<label class="control-label col-sm-2" for="details">details</label>
                 	<div class="col-sm-10">
-                    	<textarea class="form-control" rows="5" name="details" id="details"><?php echo $_main_data->get_details(); ?></textarea>
+                    	<textarea class="form-control" rows="5" name="details" id="details"></textarea>
                 	</div>
                 </div>                   
                                         
@@ -349,46 +243,6 @@
 </script>
 
 	<!-- Latest compiled JavaScript -->
-    <script src="source/javascript/dc_guid.js"></script>
-	<script>
-		 
-		function deleteRowsub(row)
-		{
-			var i=row.parentNode.parentNode.rowIndex;
-			document.getElementById('POITable').deleteRow(i);
-		}
-		
-		// Inserts a new table row on user request.
-		function insRow()
-		{
-			var $guid = null;
-			
-			$guid = dc_guid();
-			
-			$(".ec").append(
-				'<tr>'
-					+'<td>'
-						+'<select name="sub_role_role[]" id="sub_role_role_'+ $guid +'" class="form-control">'
-						+'<?php echo $role_list_options; ?>'
-						+'</select>'																		
-					+'</td>'					
-					+'<td colspan="2">'
-						+'<input type="hidden" name="sub_role_id[]" id="sub_role_id_js_'+$guid+'" value="<?php echo \dc\yukon\DEFAULTS::NEW_ID; ?>" />'
-						+'<button type="button" class ="btn btn-danger btn-sm" name="row_add" id="row_del_js_'+$guid+'" onclick="deleteRowsub(this)"><span class="glyphicon glyphicon-minus"></span></button>'						
-					+'</td>'
-				+'<tr>');
-			
-			tinymce.init({
-            selector: '#sub_details_'+ $guid,
-			plugins: [
-				"advlist autolink lists link image charmap print preview anchor",
-				"searchreplace visualblocks code fullscreen",
-				"insertdatetime media table contextmenu paste"
-			],
-			toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"});
-		}			
-		 
-	</script>
 </body>
 </html>
 
