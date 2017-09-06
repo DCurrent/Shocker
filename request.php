@@ -73,13 +73,9 @@
 		
 			// Populate the object from post values.			
 			$_main_data->populate_from_request();
-			
-			// --Sub data: Role.
-			$_obj_data_sub_request = new \data\AccountRole();
-			$_obj_data_sub_request->populate_from_request();
 		
 			// Call update stored procedure.
-			$query->set_sql('{call account_update(@id			= ?,
+			$query->set_sql('{call shocker_request_update(@id			= ?,
 													@log_update_by	= ?, 
 													@log_update_ip 	= ?,										 
 													@account 		= ?,
@@ -157,7 +153,8 @@
     
     <body>    
         <div id="container" class="container">            
-            <?php echo $obj_navigation_main->get_markup_nav(); ?>                                                                                
+            <?php echo $obj_navigation_main->get_markup_nav(); ?>
+                                                                                           
             <div class="page-header">           
                 <h1>Request</h1>
                 <p>Fill out the following form to request an AED.</p>
@@ -175,7 +172,8 @@
             </div>
             
             <form class="form-horizontal" role="form" method="post" enctype="multipart/form-data">           
-           		<?php echo $obj_navigation_rec->get_markup(); ?>  
+           		<?php $obj_navigation_rec->generate_button_list(); ?>
+               	<?php // echo $obj_navigation_rec->get_markup(); ?>  
                 
                 <div class="form-group">
                 	<label class="control-label col-sm-2" for="account">Account</label>
