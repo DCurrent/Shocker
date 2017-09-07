@@ -24,10 +24,10 @@
 	abstract class MAILING
 	{
 		const
-			TO		= '',
+			TO		= 'melissa.claar@uky.edu, lpoor2@uky.edu, dvcask2@uky.edu',
 			CC		= '',
-			BCC		= 'dc@caskeys.com',
-			SUBJECT = 'Shocker Alert',
+			BCC		= '',
+			SUBJECT = 'Shocker (AED REQUEST)',
 			FROM 	= 'ehs_noreply@uky.edu';
 	}
 	
