@@ -223,64 +223,70 @@
                 	</div>
                 </div>
                 
-                <div class="form-group">
-					
-					<label class="control-label col-sm-2" for="building_code">Building <a href="#help_building" data-toggle="collapse" class="glyphicon glyphicon-question-sign"></a></label>					
-					
-					<div class="col-sm-10">
-						
-						<div id="help_building" class="collapse text-info">
-							A building is required. Buildings are arranged in alphabetical order. If you know the building's number (speed sort), you can type it while the list is open to more quickly locate the item you are looking for. <a href="#help_building" data-toggle="collapse" class="glyphicon glyphicon-remove-sign text-danger"></a>
-							<br />
-							&nbsp;	
-						</div> 
-						
-						<select name="building_code" 
-							id="building_code" 
-							data-current="<?php echo $_main_data->get_building_code(); ?>" 
-							data-source-url="../../libraries/inserts/facility.php" 
-							data-extra-options='<option value="">Select Facility</option>'
-							data-grouped="1"
-							class="room_search form-control">
-								<!--This option is for valid HTML5; it is overwritten on load.--> 
-								<option value="0">Select Building</option>                                    
-								<!--Options will be populated on load via jquery.-->                                 
-						</select>
-					</div>
-				</div> 
-                    
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="room_code">Area <a href="#help_area" data-toggle="collapse" class="glyphicon glyphicon-question-sign"></a></label>
-					<div class="col-sm-10">
-						
-						<div id="help_area" class="collapse text-info">
-							The area is your room, laboratory, or whatever space you make an observation in. All areas in a UK Facility are given their own room identity - even places like closets, hallways, and common spaces. The rooms here are arranged by floor, and then room number. <a href="#help_area" data-toggle="collapse" class="glyphicon glyphicon-remove-sign text-danger"></a>	
-							<br />
-							&nbsp;
-						</div>
-						
-						<select name="room_code" 
-							id="room_code" 
-							data-facility="<?php echo $_main_data->get_building_code(); ?>"
-							data-current="<?php echo $_main_data->get_room_code(); ?>" 
-
-							data-source-url="../../libraries/inserts/room.php" 
-							data-grouped="1" 
-							data-extra-options='<option value="">Select Room/Area/Lab</option> <optgroup label="Outside"><option value=-1>Walkway</option><option value=-2>Loading Area</option></optgroup>' 
-							class="room_code_search disable form-control" 
-							disabled>                                        
-								<!--Options will be populated/replaced on load via jquery.-->
-								<option value="0">Select Room/Area/Lab</option>                                  							
-						</select> 
-					</div>                                   
-				</div>
                 
-                <div class="form-group">
-                	<label class="control-label col-sm-2" for="location">Location</label>
-                	<div class="col-sm-10">
-                    	<textarea class="form-control" rows="5" name="location" id="location"></textarea>
-                	</div>
-                </div>
+                
+                <fieldset id="fs_location">
+					<legend>Location</legend>
+               		
+               		<div class="form-group">					
+						<label class="control-label col-sm-2" for="building_code">Building <a href="#help_building" data-toggle="collapse" class="glyphicon glyphicon-question-sign"></a></label>					
+
+						<div class="col-sm-10">
+
+							<div id="help_building" class="collapse text-info">
+								A building is required. Buildings are arranged in alphabetical order. If you know the building's number (speed sort), you can type it while the list is open to more quickly locate the item you are looking for. <a href="#help_building" data-toggle="collapse" class="glyphicon glyphicon-remove-sign text-danger"></a>
+								<br />
+								&nbsp;	
+							</div> 
+
+							<select name="building_code" 
+								id="building_code" 
+								data-current="<?php echo $_main_data->get_building_code(); ?>" 
+								data-source-url="../../libraries/inserts/facility.php" 
+								data-extra-options='<option value="">Select Facility</option>'
+								data-grouped="1"
+								class="room_search form-control">
+									<!--This option is for valid HTML5; it is overwritten on load.--> 
+									<option value="0">Select Building</option>                                    
+									<!--Options will be populated on load via jquery.-->                                 
+							</select>
+						</div>
+					</div>
+               		
+               		<div class="form-group">
+						<label class="control-label col-sm-2" for="room_code">Area <a href="#help_area" data-toggle="collapse" class="glyphicon glyphicon-question-sign"></a></label>
+						<div class="col-sm-10">
+							<div id="help_area" class="collapse text-info">
+								The area is your room, laboratory, or whatever space you make an observation in. All areas in a UK Facility are given their own room identity - even places like closets, hallways, and common spaces. The rooms here are arranged by floor, and then room number. <a href="#help_area" data-toggle="collapse" class="glyphicon glyphicon-remove-sign text-danger"></a>	
+								<br />
+								&nbsp;
+							</div>
+
+							<select name="room_code" 
+								id="room_code" 
+								data-facility="<?php echo $_main_data->get_building_code(); ?>"
+								data-current="<?php echo $_main_data->get_room_code(); ?>" 
+
+								data-source-url="../../libraries/inserts/room.php" 
+								data-grouped="1" 
+								data-extra-options='<option value="">Select Room/Area/Lab</option> <optgroup label="Outside"><option value=-1>Walkway</option><option value=-2>Loading Area</option></optgroup>' 
+								class="room_code_search disable form-control" 
+								disabled>                                        
+									<!--Options will be populated/replaced on load via jquery.-->
+									<option value="0">Select Room/Area/Lab</option>                                  							
+							</select> 
+						</div>                                   
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="location">Details</label>
+						<div class="col-sm-10">
+							<textarea class="form-control" rows="5" name="location" id="location"></textarea>
+						</div>
+					</div>
+                </fieldset>
+                        
+				
                                        
                 <div class="form-group">
                 	<label class="control-label col-sm-2" for="reason">Reason</label>
