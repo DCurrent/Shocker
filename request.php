@@ -127,6 +127,16 @@
 			
 			break;			
 	}
+
+	// Option lists.
+	// --Buildings
+	$yukon_database->set_sql('{call '.DATABASE::SP_PREFIX.'area_building_list()}');
+	$yukon_database->query_run();
+
+	$yukon_database->get_line_config()->set_class_name('\data\Area');
+
+	$_obj_field_source_building_list = new SplDoublyLinkedList();
+	if($yukon_database->get_row_exists() === TRUE) $_obj_field_source_building_list = $yukon_database->get_line_object_list();
 	
 ?>
 
@@ -212,6 +222,42 @@
                 		<input type="text" class="form-control"  name="name_l" id="name_l" placeholder="Last Name" value="<?php echo $access_obj->get_name_l(); ?>">
                 	</div>
                 </div>
+                
+                <div class="form-group">
+                
+                	<?php
+					 	if(is_object($_obj_field_source_building_list) === TRUE)
+						{   
+							$building_list_options = NULL;
+							
+							// Generate table row for each item in list.
+							for($_obj_field_source_building_list->rewind(); $_obj_field_source_building_list->valid(); $_obj_field_source_building_list->next())
+							{	                                                               
+								$current = $_obj_field_source_building_list->current();
+
+								$value 		= $current->get_building_code();																
+								$label		= $current->get_building_code().' - '.$current->get_building_name();
+								$selected 	= NULL;
+
+								//if($value != NULL && $value == $select_target)
+								//{
+								//	$selected = ' selected ';
+								//}									
+
+								$building_list_options .= '<option value="'.$value.'"'.$selected.'>'.$label.'</option>';                 
+							}
+						}
+					?>
+               	
+                	<label class="control-label col-sm-2" for="building_code">Building</label>
+                	<div class="col-sm-10">
+                		<select class="form-control" name="building_code" id="building_code">
+                		<?php echo $building_list_options; ?>	
+                		</select>
+					</div>
+               	</div>
+                	
+                
                 
                 <div class="form-group">
                 	<label class="control-label col-sm-2" for="location">Location</label>

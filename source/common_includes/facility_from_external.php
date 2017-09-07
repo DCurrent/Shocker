@@ -1,5 +1,5 @@
 <?php
-	require(__DIR__.'/../../source/main.php');
+	require_once(__DIR__.'/../../source/main.php');
 
 	// Output options markup for select.
 	function options_markup(SplDoublyLinkedList $_list, $select_target = NULL)
@@ -69,8 +69,6 @@
 	$option_list	= NULL;   	
 
 	// --Buildings
-	$_obj_field_source_account_list = new \data\Area();
-
 	$yukon_database->set_sql('{call '.DATABASE::SP_PREFIX.'area_building_list()}');
 	$yukon_database->query_run();
 
