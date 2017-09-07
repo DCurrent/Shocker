@@ -317,7 +317,7 @@
                             ?>
                                         <tr class="clickable-row" role="button" data-href="<?php echo $_obj_data_main->get_id(); ?>">
                                             <td><?php if(is_object($_obj_data_main->get_create_time()) === TRUE) echo date(APPLICATION_SETTINGS::TIME_FORMAT, $_obj_data_main->get_create_time()->getTimestamp()); ?></td>
-                                            <td><?php echo $_obj_data_main->get_building_name(). ', '.$_obj_data_main->get_room_id() ; ?></td>
+                                            <td><?php echo trim($_obj_data_main->get_building_name()). ', '.$_obj_data_main->get_room_id() ; ?></td>
                                             <td><?php echo $_obj_data_main->get_update_by(); ?></td>
                                             <td><?php echo $_obj_data_main->get_name_l().', '.$_obj_data_main->get_name_f().' '.$_obj_data_main->get_name_m(); ?></td>
                                         </tr>                                    
