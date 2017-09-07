@@ -260,7 +260,7 @@
 				// to detail page with a blank record.	
 			 
 				$target_url 	= '#';
-				$target_name	= basename(__FILE__, '_list.php').'_read.php';
+				$target_name	= 'request_read.php';
 				$target_file	= __DIR__.'/'.$target_name;				
 				
 				// Does the file exisit? If so we can
