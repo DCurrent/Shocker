@@ -100,7 +100,7 @@
 					else
 					{
 				?>
-                		<p class="lead">Welcome to <?php echo APPLICATION_SETTINGS::NAME; ?>. In order to use <?php echo APPLICATION_SETTINGS::NAME; ?>, please log in using your <a href="#" data-toggle="modal" data-target="#help_link_blue">Link Blue</a> account and password.</p>
+                		<p class="lead">Welcome to <?php echo APPLICATION_SETTINGS::NAME; ?>, the University of Kentucky's online Automated External Defibrillator (AED) request application. In order to use <?php echo APPLICATION_SETTINGS::NAME; ?>, please log in using your <a href="#" data-toggle="modal" data-target="#help_link_blue">Link Blue</a> account and password.</p>
             		
                     	<p><?php echo $access_obj->dialog(); ?></p>
                     	
