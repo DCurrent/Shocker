@@ -87,7 +87,7 @@
 									<ul class="dropdown-menu">
 										                               	
 										<li class="dropdown-header">Requests</li>                                    
-											<li><a href="<?php echo $this->directory_prime; ?>/observation_source_list.php"><?php echo NAV_INDENT; ?>Request List</a></li>                                    
+											<li><a href="<?php echo $this->directory_prime; ?>/request_list.php"><?php echo NAV_INDENT; ?>Request List</a></li>                                    
 									</ul>
 								</li>
                        		<?php

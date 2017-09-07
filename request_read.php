@@ -121,7 +121,7 @@
                                                                                            
             <div class="page-header">           
                 <h1>Request Readout</h1>
-                
+				<p class="lead"><a href="request_list.php">Return to Request List.</a></p>
                 <?php
 					// If this isn't the active version, better alert user.
 					//if(!$_main_data->get_active() && $_main_data->get_id_key())
