@@ -123,8 +123,29 @@
 			$url_query->set_data('id', $_main_data->get_id());
 			$url_query->set_url_base($_SERVER['PHP_SELF']);
 			
+			
+			// Set up and send email alert.		
+			$subject = MAILING::SUBJECT;
+			$body = 'AED Request posted. <a href="http://ehs.uky.edu/apps/shocker/request_read.php?&id='.$_main_data->get_id().'">Click here</a> to view.';
+
+			$address = $post->get_email();
+			$headers   = array();
+			$headers[] = "MIME-Version: 1.0";
+			$headers[] = "Content-type: text/html; charset=iso-8859-1";
+			if(MAILING::FROM)	$headers[] = "From: ".MAILING::FROM;
+			if(MAILING::BCC)	$headers[] = "Bcc: ".MAILING::BCC;
+			if(MAILING::CC) 	$headers[] = "Cc: ".MAILING::CC;
+
+			// Set up mail to addresses.
+			$mail_to = MAILING::TO;
+			$mail_to .= ', '.$oAcc->get_account().'@uky.edu';
+			if($address && filter_var($address, FILTER_VALIDATE_EMAIL)) $mail_to .= ', '.$address;
+					
+			// Run mail function.
+			mail($mail_to, MAILING::SUBJECT, $body, implode("\r\n", $headers));
+			
 			//header('Location: '.$url_query->return_url());
-			header('Location: '.$url_query->return_url());
+			//header('Location: '.$url_query->return_url());
 			
 			header('Location: request_complete.php');
 			
