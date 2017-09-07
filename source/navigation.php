@@ -72,43 +72,29 @@
                     <div class="collapse navbar-collapse" id="nav_main">
                         <ul class="nav navbar-nav">
                             <!--<li class="active"><a href="#">Home</a></li>-->
-                            <li class="dropdown">
-                                <a class="dropdown-toggle <?php echo $class_add; ?>" data-toggle="dropdown" href="#">Inspection<span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="<?php echo $this->directory_prime; ?>?id_form=1550&amp;list=1">Inspection List</a></li>
-                                    <!--<li><a href="<?php echo $this->directory_prime; ?>/inspection_autoclave.php&#63;nav_command=<?php echo \dc\recordnav\COMMANDS::NEW_BLANK;?>&amp;id=<?php echo \dc\yukon\DEFAULTS::NEW_ID; ?>"><span class="glyphicon glyphicon-plus"></span> Autoclave</a></li>-->
-                                    <li><a href="<?php echo $this->directory_prime; ?>?id_form=1550&amp;nav_command=<?php echo \dc\recordnav\COMMANDS::NEW_BLANK;?>&amp;id=<?php echo \dc\yukon\DEFAULTS::NEW_ID; ?>"><span class="glyphicon glyphicon-plus"></span> SAA</a></li>
-                                </ul>
-                            </li>
-                           <li><a class="disabled <?php echo $class_add; ?>" href="#">Review</a></li>
-                            <li class="dropdown">
-                                <a class="dropdown-toggle <?php echo $class_add; ?>" data-toggle="dropdown" href="#">System<span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                	<li class="dropdown-header">Administration</li>
-                                        <li><a href="<?php echo $this->directory_prime; ?>/config_common_entry_list.php"><?php echo NAV_INDENT; ?>Common Entry Forms</a></li>
-                                    	<li><a href="<?php echo $this->directory_prime; ?>?id_form=1256&amp;list=1"><?php echo NAV_INDENT; ?>Accounts</a></li>
-                                    	<li><a href="<?php echo $this->directory_prime; ?>?id_form=1182&amp;list=1"><?php echo NAV_INDENT; ?>Account Roles</a></li>
-                                        <li><a href="<?php echo $this->directory_prime; ?>/audit_type_list.php?id_form=1599&amp;list=1"><?php echo NAV_INDENT; ?>Visit Types</a></li>
-                                    <li class="divider"></li>
-                                	<li class="dropdown-header">Area/Rooms</li>
-                                    	<li><a href="<?php echo $this->directory_prime; ?>/area_list.php"><?php echo NAV_INDENT; ?>Areas</a></li>
-                                    	<li><a href="<?php echo $this->directory_prime; ?>?id_form=1185&amp;list=1"><?php echo NAV_INDENT; ?>Area Types</a></li>
-                                        <li><a href="<?php echo $this->directory_prime; ?>?id_form=1169&amp;list=1"><?php echo NAV_INDENT; ?>Biosafety Levels</a></li>
-                                        <li><a href="<?php echo $this->directory_prime; ?>?id_form=1170&amp;list=1"><?php echo NAV_INDENT; ?>Chemical Lab Classes</a></li>
-                                        <li><a href="<?php echo $this->directory_prime; ?>?id_form=1171&amp;list=1"><?php echo NAV_INDENT; ?>Chemical Operations Classes</a></li>	
-                                        <li><a href="<?php echo $this->directory_prime; ?>?id_form=1608&amp;list=1"><?php echo NAV_INDENT; ?>NFPA 45 Lab Unit Hazard Classification</a></li>
-                                    <li class="divider"></li>
-                                    <li class="dropdown-header">Findings</li>                                    
-                                    	<li><a href="<?php echo $this->directory_prime; ?>/?id_form=1548&amp;list=1"><?php echo NAV_INDENT; ?>Categories</a></li>
-                                        <li><a href="<?php echo $this->directory_prime; ?>/?id_form=1552&amp;list=1"><?php echo NAV_INDENT; ?>Questions</a></li>
-                                        <li><a href="<?php echo $this->directory_prime; ?>/?id_form=1172&amp;list=1"><?php echo NAV_INDENT; ?>Ratings</a></li>                                 	
-                                    <li class="divider"></li>
-                                    <li class="dropdown-header">Biological Agents</li>
-                                        <li><a href="<?php echo $this->directory_prime; ?>/biological_agent_list.php"><?php echo NAV_INDENT; ?>Agents</a></li>
-                                        <li><a href="<?php echo $this->directory_prime; ?>?id_form=1168&amp;list=1"><?php echo NAV_INDENT; ?>Risk Groups</a></li>
-                                        <li><a href="<?php echo $this->directory_prime; ?>?id_form=1148&amp;list=1"><?php echo NAV_INDENT; ?>Hosts</a></li>
-                                </ul>
-                            </li>
+                           	<li><a class="" href="#">Request AED</a></li>
+                           
+                           	<?php
+								// Just a hack until database access list is ready.
+                           		if($this->access_obj->get_account()=='dvcask2' 
+								   	|| $this->access_obj->get_account()=='lpoore0' 
+								   	|| $this->access_obj->get_account()=='mla263'
+								  	|| $this->access_obj->get_account()=='dwhibb0')
+								{
+                           	?>
+								<li class="dropdown">
+									<a class="dropdown-toggle <?php echo $class_add; ?>" data-toggle="dropdown" href="#">System<span class="caret"></span></a>
+									<ul class="dropdown-menu">
+										<li class="dropdown-header">Administration</li>
+											<li><a href="<?php echo $this->directory_prime; ?>/config_common_entry_list.php"><?php echo NAV_INDENT; ?>Common Entry Forms</a></li>
+										<li class="divider"></li>                                	
+										<li class="dropdown-header">Requests</li>                                    
+											<li><a href="<?php echo $this->directory_prime; ?>/observation_source_list.php"><?php echo NAV_INDENT; ?>Observation Items</a></li>                                    
+									</ul>
+								</li>
+                       		<?php
+								}		
+                       		?>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                         <?php
