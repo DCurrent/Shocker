@@ -257,7 +257,7 @@
 						<label class="control-label col-sm-2" for="room_code">Area <a href="#help_area" data-toggle="collapse" class="glyphicon glyphicon-question-sign"></a></label>
 						<div class="col-sm-10">
 							<div id="help_area" class="collapse text-info">
-								The area is your room, laboratory, or whatever space you make an observation in. All areas in a UK Facility are given their own room identity - even places like closets, hallways, and common spaces. The rooms here are arranged by floor, and then room number. <a href="#help_area" data-toggle="collapse" class="glyphicon glyphicon-remove-sign text-danger"></a>	
+								The area is your room, laboratory, or whatever space you would like to place an AED in. All areas in a UK Facility are given their own room identity - even places like closets, hallways, and common spaces. The rooms here are arranged by floor, and then room number. <a href="#help_area" data-toggle="collapse" class="glyphicon glyphicon-remove-sign text-danger"></a>	
 								<br />
 								&nbsp;
 							</div>
@@ -287,21 +287,24 @@
                 </fieldset>
                         
 				
+                <fieldset>
+                    <legend>Commentary</legend>
                                        
-                <div class="form-group">
-                	<label class="control-label col-sm-2" for="reason">Reason</label>
-                	<div class="col-sm-10">
-                    	<textarea class="form-control" rows="5" name="reason" id="reason"></textarea>
-                	</div>
-                </div> 
-                                       
-                <div class="form-group">
-                	<label class="control-label col-sm-2" for="comments">Additional Comments</label>
-                	<div class="col-sm-10">
-                    	<textarea class="form-control" rows="5" name="comments" id="comments"></textarea>
-                	</div>
-                </div>                   
-                                        
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="reason">Reason For AED Request</label>
+						<div class="col-sm-10">
+							<textarea class="form-control" rows="5" name="reason" id="reason"></textarea>
+						</div>
+					</div> 
+
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="comments">Additional Comments</label>
+						<div class="col-sm-10">
+							<textarea class="form-control" rows="5" name="comments" id="comments"></textarea>
+						</div>
+					</div>                   
+                </fieldset>
+                                  
                 <hr />
                 <div class="form-group">
                 	<div class="col-sm-12">
