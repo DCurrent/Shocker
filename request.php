@@ -123,7 +123,10 @@
 			$url_query->set_data('id', $_main_data->get_id());
 			$url_query->set_url_base($_SERVER['PHP_SELF']);
 			
+			//header('Location: '.$url_query->return_url());
 			header('Location: '.$url_query->return_url());
+			
+			header('Location: request_complete.php');
 			
 			break;			
 	}
