@@ -94,7 +94,7 @@
 							echo 'Good evening ';
 						}
 						echo $access_obj->get_name_f();
-				?>! Thank you for using <?php echo APPLICATION_SETTINGS::NAME; ?>.</p>
+				?>! Thank you for using <?php echo APPLICATION_SETTINGS::NAME; ?>. <a href="request.php">Click here</a> to fill out an AED request.</p>
                 <?php
 					}
 					else
