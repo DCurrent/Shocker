@@ -72,7 +72,7 @@
                     <div class="collapse navbar-collapse" id="nav_main">
                         <ul class="nav navbar-nav">
                             <!--<li class="active"><a href="#">Home</a></li>-->
-                           	<li><a class="" href="#">Request AED</a></li>
+                           	<li><a class="" href="<?php echo $this->directory_prime; ?>/request.php">Request AED</a></li>
                            
                            	<?php
 								// Just a hack until database access list is ready.
