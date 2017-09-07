@@ -179,7 +179,7 @@
                 <h1>Request</h1>
                 <p class="lead text-success">AED Request Completed!</p>
                           
-               	<p>Thank you. We will process your AED request soon as possible. You may click here to make another <a href="request.php">AED request</a> or return to <a href="http://ehs.uky.edu">Environmental Health & Safety</a>.</p>
+               	<p>Thank you. We will process your AED request soon as possible. You may <a href="request.php">click here</a> to make another AED request or return to <a href="http://ehs.uky.edu">Environmental Health & Safety</a>.</p>
                            
             <?php echo $obj_navigation_main->get_markup_footer(); ?>
         </div><!--container--> 
