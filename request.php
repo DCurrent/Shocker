@@ -144,7 +144,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" />
-        <title><?php echo APPLICATION_SETTINGS::NAME; ?>, Account Detail</title>        
+        <title><?php echo APPLICATION_SETTINGS::NAME; ?>, Request Form</title>        
         
          <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
