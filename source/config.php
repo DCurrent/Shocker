@@ -17,7 +17,8 @@
 			NAME 		= 'ehsinfo',					// Database logical name.
 			USER 		= 'EHSInfo_User',				// User name to access database.
 			PASSWORD	= 'ehsinfo',					// Password to access database.
-			CHARSET		= 'UTF-8';						// Character set.
+			CHARSET		= 'UTF-8',						// Character set.
+			SP_PREFIX	= 'shocker_';					// Added to begining of SP names.
 	}
 
 	abstract class MAILING
