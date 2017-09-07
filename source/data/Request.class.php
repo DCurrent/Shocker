@@ -7,7 +7,9 @@
 		// Accessors.
 		function get_location();
 		function get_building_code();
+		function get_building_name();
 		function get_room_code();	
+		function get_room_id();
 		function get_reason();		
 		function get_comments();		
 		
@@ -24,7 +26,9 @@
 		protected			
 			$location		= NULL,	
 			$building_code	= NULL,
-			$room_code		= NULL,		
+			$building_name	= NULL,
+			$room_code		= NULL,
+			$room_id		= NULL,
 			$reason			= NULL,
 			$comments		= NULL;	
 			
@@ -39,10 +43,20 @@
 			return $this->building_code;
 		}
 		
+		public function get_building_name()
+		{
+			return $this->building_name;
+		}
+		
 		public function get_room_code()
 		{
 			return $this->room_code;
 		}		
+		
+		public function get_room_id()
+		{
+			return $this->room_id;
+		}
 		
 		public function get_reason()
 		{
