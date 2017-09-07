@@ -1,11 +1,10 @@
 <?php 
 		
 	require(__DIR__.'/source/main.php');
-	require(__DIR__.'/source/common_functions/common_security.php');
 	
-	const LOCAL_STORED_PROC_NAME 	= 'stf_observation_target_list'; 	// Used to call stored procedures for the main record set of this script.
-	const LOCAL_BASE_TITLE 			= 'Observation List';	// Title display, button labels, instruction inserts, etc.
-	$primary_data_class				= '\data\Area';
+	const LOCAL_STORED_PROC_NAME 	= 'shocker_request_list'; 	// Used to call stored procedures for the main record set of this script.
+	const LOCAL_BASE_TITLE 			= 'Request List';	// Title display, button labels, instruction inserts, etc.
+	$primary_data_class				= '\data\Request';
 	
 	class class_filter_control
 	{
@@ -76,7 +75,12 @@
 	} 
 	
 	// Verify user access.
-	$current_account = common_security();
+	$access_obj = new \dc\access\status();
+	$access_obj->get_config()->set_authenticate_url(APPLICATION_SETTINGS::DIRECTORY_PRIME);
+	$access_obj->get_config()->set_database($yukon_database);
+	
+	$access_obj->verify();	
+	$access_obj->action();
 	
 	// Start page cache.
 	$page_obj = new \dc\cache\PageCache();
@@ -100,16 +104,13 @@
 	// Set up navigaiton.
 	$navigation_obj = new class_navigation();
 	
-	// Set up database.
-	$query = new \dc\yukon\Database();
-		
 	$paging = new \dc\recordnav\Paging();
 	$paging->set_row_max(APPLICATION_SETTINGS::PAGE_ROW_MAX);
 	
 	// Record navigation.
 	$obj_navigation_rec = new \dc\recordnav\RecordNav();
 	
-	$query->set_sql('{call '.LOCAL_STORED_PROC_NAME.'(@param_page_current 		= ?,														 
+	$yukon_database->set_sql('{call '.LOCAL_STORED_PROC_NAME.'(@param_page_current 		= ?,														 
 										@param_page_rows 	= ?,
 										@param_sort_field	= ?,
 										@param_sort_order	= ?,
@@ -127,19 +128,19 @@
 	//var_dump($params);
 	//exit;
 
-	$query->set_params($params);
-	$query->query();
+	$yukon_database->set_param_array($params);			
+	$yukon_database->query_run();
 	
-	$query->get_line_params()->set_class_name($primary_data_class);
-	$_obj_data_main_list = $query->get_line_object_list();
+	$yukon_database->get_line_config()->set_class_name($primary_data_class);
+	$_obj_data_main_list = $yukon_database->get_line_object_list();
 
 	// --Paging
-	$query->get_next_result();
+	$yukon_database->get_next_result();
 	
-	$query->get_line_params()->set_class_name('\dc\recordnav\Paging');
+	$yukon_database->get_line_config()->set_class_name('\dc\recordnav\Paging');
 	
 	//$_obj_data_paging = new \dc\recordnav\Paging();
-	if($query->get_row_exists()) $paging = $query->get_line_object();
+	if($yukon_database->get_row_exists()) $paging = $yukon_database->get_line_object();
 ?>
 
 <!DOCtype html>
@@ -170,8 +171,8 @@
             
             <?php
             // Just a hack until database access list is ready.
-			if($current_account=='dvcask2' || $current_account=='lpoore0')
-			{
+			//if($current_account=='dvcask2' || $current_account=='lpoore0')
+			//{
 			?>
             
             	<div class="panel panel-default" id="filter_container">
@@ -230,7 +231,7 @@
                     </div><!--#filter_collapse-->
                 </div><!--#filter_container-->
             <?php
-			}
+			//}
 			?>
            
             <?php
@@ -278,7 +279,7 @@
 						});
 					</script>
                     
-                    <a href="<?php echo $target_url; ?>&#63;nav_command=<?php echo \dc\recordnav\COMMANDS::NEW_BLANK;?>&amp;id=<?php echo \dc\yukon\DEFAULTS::NEW_ID; ?>" class="btn btn-success btn-block" title="Click here to start entering a new item."><span class="glyphicon glyphicon-plus"></span> New Observation</a>
+                    <a href="<?php echo $target_url; ?>&#63;nav_command=<?php echo \dc\recordnav\COMMANDS::NEW_BLANK;?>&amp;id=<?php echo \dc\yukon\DEFAULTS::NEW_ID; ?>" class="btn btn-success btn-block" title="Click here to start entering a new item."><span class="glyphicon glyphicon-plus"></span> New Request</a>
                 <?php
 				}
 				
@@ -318,7 +319,7 @@
                                             <td><?php if(is_object($_obj_data_main->get_create_time()) === TRUE) echo date(APPLICATION_SETTINGS::TIME_FORMAT, $_obj_data_main->get_create_time()->getTimestamp()); ?></td>
                                             <td><?php echo $_obj_data_main->get_label(); ?></td>
                                             <td><?php echo $_obj_data_main->get_building_name(); ?></td>
-                                            <td><?php echo $_obj_data_main->get_update_by_account(); ?></td>
+                                            <td><?php echo $_obj_data_main->get_update_by(); ?></td>
                                         </tr>                                    
                             <?php								
                             	}
