@@ -159,6 +159,15 @@
 
 	$_obj_field_source_building_list = new SplDoublyLinkedList();
 	if($yukon_database->get_row_exists() === TRUE) $_obj_field_source_building_list = $yukon_database->get_line_object_list();
+
+	// --Buildings
+	$yukon_database->set_sql('{call '.DATABASE::SP_PREFIX.'area_building_list()}');
+	$yukon_database->query_run();
+
+	$yukon_database->get_line_config()->set_class_name('\data\Area');
+
+	$_obj_field_source_building_list = new SplDoublyLinkedList();
+	if($yukon_database->get_row_exists() === TRUE) $_obj_field_source_building_list = $yukon_database->get_line_object_list();
 	
 ?>
 

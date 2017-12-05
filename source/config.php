@@ -4,7 +4,7 @@
 	{
 		const
 			VERSION 		= '0.1.1',
-			NAME			= 'Shocker',
+			NAME			= 'AED Online',
 			DIRECTORY_PRIME	= '/apps/shocker',
 			TIME_FORMAT		= 'Y-m-d H:i:s',
 			PAGE_ROW_MAX	= 25;
@@ -27,7 +27,7 @@
 			TO		= 'melissa.claar@uky.edu, lpoor2@uky.edu, dvcask2@uky.edu',
 			CC		= '',
 			BCC		= '',
-			SUBJECT = 'Shocker (AED REQUEST)',
+			SUBJECT = 'AED REQUEST',
 			FROM 	= 'ehs_noreply@uky.edu';
 	}
 	
