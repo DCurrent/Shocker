@@ -7,3 +7,6 @@
 [submodule "source/dc/Chronofix"]
 	path = source/dc/Chronofix
 	url = https://github.com/DCurrent/Chronofix/
+[submodule "source/dc/stoeckl"]
+	path = source/dc/stoeckl
+	url = https://github.com/dcurrent/stoeckl
